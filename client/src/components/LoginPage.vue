@@ -17,7 +17,7 @@ export default {
 
   methods: {
     async login() {
-      const response = await fetch('http://localhost:3000/authenticate', {
+      const response = await fetch('https://todoapp-fc5j.onrender.com/authenticate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: this.luckyAnswer }),

@@ -48,7 +48,7 @@ export default {
   methods: {
     async fetchTodos() {
       try {
-        const response = await axios.get('http://localhost:3000/todos');
+        const response = await axios.get('https://todoapp-fc5j.onrender.com/todos');
         this.todos = response.data;
       } catch (error) {
         console.error(error);
@@ -62,7 +62,7 @@ export default {
       }
 
       try {
-        await axios.put(`http://localhost:3000/todos/${todo._id}`, {
+        await axios.put(`https://todoapp-fc5j.onrender.com/todos/${todo._id}`, {
           isDone: todo.isDone,
         });
       } catch (error) {
@@ -76,7 +76,7 @@ export default {
         isDone: false,
       };
       try {
-        const response = await axios.post('http://localhost:3000/todos', todo);
+        const response = await axios.post('https://todoapp-fc5j.onrender.com/todos', todo);
         this.todos.push(response.data);
         this.newTodoText = '';
       } catch (error) {
