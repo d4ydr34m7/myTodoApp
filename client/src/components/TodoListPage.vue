@@ -1,0 +1,94 @@
+<template>
+  <div>
+    <h1>Todo List</h1>
+    <form>
+      <label for="todo-input">Add tasks: </label>
+      <input
+        id="todo-input"
+        type="text"
+        v-model="newTodoText"
+        @keypress.enter="addTodo"
+      />
+    </form>
+  
+    <ul>
+      <li v-for="(todo, index) in todos" :key="todo._id">
+        <input
+          type="checkbox"
+          :id="`todo-${index}`"
+          v-model="todo.isDone"
+          @change="updateTodoStatus(todo)"
+        />
+        <label :for="`todo-${index}`" v-bind:class="{ done: todo.isDone }">{{
+          todo.text
+        }}</label>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      todos: [],
+      newTodoText: '',
+    };
+  },
+  created() {
+    this.fetchTodos();
+  },
+  mounted() {
+    this.$nextTick(() => {
+      document.getElementById('todo-input').focus();
+    });
+  },
+  methods: {
+    async fetchTodos() {
+      try {
+        const response = await axios.get('http://localhost:3000/todos');
+        this.todos = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async updateTodoStatus(todo) {
+      if (!todo) {
+        console.error('Todo object is undefined.');
+        return;
+      }
+
+      try {
+        await axios.put(`http://localhost:3000/todos/${todo._id}`, {
+          isDone: todo.isDone,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async addTodo() {
+      const todo = {
+        text: this.newTodoText,
+        isDone: false,
+      };
+      try {
+        const response = await axios.post('http://localhost:3000/todos', todo);
+        this.todos.push(response.data);
+        this.newTodoText = '';
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
+};
+</script>
+
+<style>
+.done {
+  text-decoration: line-through;
+}
+</style>
