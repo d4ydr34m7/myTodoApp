@@ -1,7 +1,7 @@
 <template>
   <form>
-    <label for="answer">When do you want it?</label>
-    <input type="text" id="answer" v-model="luckyAnswer" autofocus />
+    <label for="answer">When do you want it?</label><br />
+    <input type="text" id="answer" v-model="luckyAnswer" autofocus /><br /><br />
 
     <button @click.prevent="login">Login</button>
   </form>
