@@ -10,20 +10,18 @@
         @keypress.enter="addTodo"
       />
     </form>
-  
-    <ul>
-      <li v-for="(todo, index) in todos" :key="todo._id">
-        <input
-          type="checkbox"
-          :id="`todo-${index}`"
-          v-model="todo.isDone"
-          @change="updateTodoStatus(todo)"
-        />
-        <label :for="`todo-${index}`" v-bind:class="{ done: todo.isDone }">{{
-          todo.text
-        }}</label>
-      </li>
-    </ul>
+
+    <div v-for="(todo, index) in todos" :key="todo._id">
+      <input
+        type="checkbox"
+        :id="`todo-${index}`"
+        v-model="todo.isDone"
+        @change="updateTodoStatus(todo)"
+      />
+      <label :for="`todo-${index}`" v-bind:class="{ done: todo.isDone }">{{
+        todo.text
+      }}</label>
+    </div>
   </div>
 </template>
 
@@ -48,7 +46,9 @@ export default {
   methods: {
     async fetchTodos() {
       try {
-        const response = await axios.get('https://todoapp-fc5j.onrender.com/todos');
+        const response = await axios.get(
+          'https://todoapp-fc5j.onrender.com/todos',
+        );
         this.todos = response.data;
       } catch (error) {
         console.error(error);
@@ -76,7 +76,10 @@ export default {
         isDone: false,
       };
       try {
-        const response = await axios.post('https://todoapp-fc5j.onrender.com/todos', todo);
+        const response = await axios.post(
+          'https://todoapp-fc5j.onrender.com/todos',
+          todo,
+        );
         this.todos.push(response.data);
         this.newTodoText = '';
       } catch (error) {
