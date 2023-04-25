@@ -2,14 +2,14 @@
   <div>
     <h1>Todo List</h1>
     <form>
-      <label for="todo-input">Add tasks: </label>
+      <label for="todo-input">Add tasks: </label> 
       <input
         id="todo-input"
         type="text"
         v-model="newTodoText"
         @keypress.enter="addTodo"
       />
-    </form>
+    </form><br />
 
     <div v-for="(todo, index) in todos" :key="todo._id">
       <input
